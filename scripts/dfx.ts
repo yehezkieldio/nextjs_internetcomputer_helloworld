@@ -5,6 +5,9 @@ import { $ } from "bun";
 const { values } = parseArgs({
     args: Bun.argv,
     options: {
+        start: {
+            type: "boolean",
+        },
         generate: {
             type: "boolean",
         },
@@ -19,9 +22,15 @@ const { values } = parseArgs({
     allowPositionals: true,
 });
 
+/* -------------------------------------------------------------------------- */
+
+if (values.start) {
+    await $`dfx start --clean`;
+}
+
 if (values.generate) {
     await $`dfx generate backend`;
-    await $`bun run scripts/update-env.ts`;
+    await $`bun run update-env`;
 }
 
 if (values.create) {
@@ -29,7 +38,8 @@ if (values.create) {
 }
 
 if (values.deploy) {
-    await $`dfx deploy`;
+    await $`dfx canister install backend`;
+    await $`bun run update-env`;
 }
 
 export {};

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { Button } from "#/components/ui/button";
+import { Card, CardContent } from "#/components/ui/card";
 import { createBackendActor } from "#/lib/actor";
 
 const actor = createBackendActor();
@@ -21,11 +23,15 @@ export default function HelloWorld() {
     }
 
     return (
-        <div className="flex flex-row p-4">
-            <span>{helloWorld ? <span>{helloWorld}</span> : <span>No greeting yet</span>}</span>
-            <button type="button" onClick={handleSubmit} className="ml-4 border-white">
-                Greet me
-            </button>
-        </div>
+        <Card>
+            <CardContent className="mb-12 mt-12 flex flex-col items-center justify-center gap-4 pt-6">
+                <span className="text-center">
+                    {helloWorld ? <span>{helloWorld}</span> : <span>No greeting yet</span>}
+                </span>
+                <Button type="button" onClick={handleSubmit}>
+                    Greet me
+                </Button>
+            </CardContent>
+        </Card>
     );
 }
