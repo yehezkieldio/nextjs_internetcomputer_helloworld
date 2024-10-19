@@ -7,6 +7,18 @@
                 "node_compatibility": true,
                 "output": "src/icp"
             }
+        },
+        "frontend": {
+            "dependencies": ["backend"],
+            "frontend": {
+                "entrypoint": "out/index.html"
+            },
+            "declarations": {
+                "node_compatibility": true,
+                "output": "src/icp"
+            },
+            "source": ["out"],
+            "type": "assets"
         }
     },
     "defaults": {

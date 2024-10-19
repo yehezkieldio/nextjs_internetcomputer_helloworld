@@ -16,7 +16,18 @@ async function updateFile(filePath: string, oldString: string, newString: string
     }
 }
 
+async function updateEnv(oldString: string, newString: string): Promise<void> {
+    if (!process.env[newString]) {
+        process.env[newString] = process.env[oldString];
+        delete process.env[oldString];
+        console.log(`Updating process.env with ${newString}`);
+    } else {
+        console.log(`No need to update process.env`);
+    }
+}
+
 await updateFile(ENV_FILE_PATH, GENERATED, EXPECTED_GENERATED);
 await updateFile(DECLARATIONS_FILE_PATH, GENERATED, EXPECTED_GENERATED);
+await updateEnv(GENERATED, EXPECTED_GENERATED);
 
 export {};
